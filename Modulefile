@@ -5,6 +5,6 @@ author 'puppet'
 license 'Apache License, Version 2.0'
 summary 'put a summary here'
 description 'put a description here'
-project_page 'https://github.com/puppet/puppet-module-hostnamefacts'
+project_page 'https://github.com/geogdog/puppet-hostnamefacts'
 
 dependency 'puppetlabs/stdlib', '>= 3.2.0'
