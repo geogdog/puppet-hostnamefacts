@@ -1,4 +1,4 @@
-# puppet-module-hostnamefacts
+# puppet-hostnamefacts
 ===
 
 A very simple module to provide hostname facts for stanardised hostnames.

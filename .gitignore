@@ -3,6 +3,7 @@
 *.rbc
 .bundle
 .config
+.gemfile.lock
 coverage
 InstalledFiles
 lib/bundler/man
