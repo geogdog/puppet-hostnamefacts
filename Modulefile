@@ -1,5 +1,5 @@
 name 'puppet-hostnamefacts'
-version '0.1.1'
+version '0.1.2'
 source 'git://github.com/puppet/puppet-module-hostnamefacts.git'
 author 'puppet'
 license 'Apache License, Version 2.0'
