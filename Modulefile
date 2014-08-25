@@ -1,5 +1,5 @@
 name 'geogdog-hostnamefacts'
-version '0.1.3'
+version '0.1.4'
 source 'git://github.com/puppet/puppet-hostnamefacts.git'
 author 'geogdog'
 license 'Apache License, Version 2.0'
