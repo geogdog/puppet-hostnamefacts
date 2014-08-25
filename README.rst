@@ -1,5 +1,6 @@
-# puppet-hostnamefacts
-===
+puppet-hostnamefacts
+####################
+
 
 A very simple module to provide hostname facts for stanardised hostnames.
 I tend to use the following convention for hostnames::

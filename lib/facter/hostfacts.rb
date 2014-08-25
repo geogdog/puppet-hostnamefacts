@@ -7,82 +7,55 @@
 
 module Facter::Util::HostFact
   class << self
+  @@hostname = Facter.value(:hostname)
+  @@hostname_split = @@hostname.split('-')
+  def hostname
+    @@hostname
+  end
+  def hostname_split
+    @@hostname_split
+  end
   def environment
-    Facter.value(:hostname).split('-')[0]
+    @@hostname_split[0]
   end
   def node_number_raw
-    Facter.value(:hostname).split('-')[-1]
+    @@hostname_split[-1]
   end
   def node_number
-    Facter.value(:hostname).split('-')[-1].to_i
+    @@hostname_split[-1].to_i
   end
   def role
-    Facter.value(:hostname).split('-')[1...-1].join('-')
+    @@hostname_split[1...-1].join('-')
   end
   end
 end
 
-
-# Cut off the first part of the hostname.  This will be the environment
-# (test, acceptance, production, etc)
-Facter.add('hostfact_environment') do
-  setcode do
-    Facter::Util::HostFact.environment
+if Facter::Util::HostFact.hostname_split.length >= 3
+  # Cut off the first part of the hostname.  This will be the environment
+  # (test, acceptance, production, etc)
+  Facter.add('hostfact_environment') do
+    setcode do
+      Facter::Util::HostFact.environment
+    end
+  end
+  
+  if Facter::Util::HostFact.hostname_split[-1].to_i != 0
+    Facter.add('hostfact_node_number_raw') do
+      setcode do
+        Facter::Util::HostFact.node_number_raw
+      end
+    end
+    
+    Facter.add('hostfact_node_number') do
+      setcode do
+        Facter::Util::HostFact.node_number
+      end
+    end
+  end
+  
+  Facter.add('hostfact_role') do
+    setcode do
+      Facter::Util::HostFact.role
+    end
   end
 end
-
-Facter.add('hostfact_node_number_raw') do
-  setcode do
-    Facter::Util::HostFact.node_number_raw
-  end
-end
-
-Facter.add('hostfact_node_number') do
-  setcode do
-    Facter::Util::HostFact.node_number
-  end
-end
-
-Facter.add('hostfact_role') do
-  setcode do
-    Facter::Util::HostFact.role
-  end
-end
-
-#hostname = Facter.value(:hostname)
-
-## Get the last element of the hostname.  This should be a poitive integer.
-## It will be returned as it appears in the hostname.
-#Facter.add('hostfact_node_number_raw') do
-#  setcode do
-#    hostname_int = hostname[-1].to_i
-#    if hostname.length >= 3
-#      if hostname_int != 0
-#        hostname[-1]
-#      end
-#    end
-#  end
-#end
-#
-### Get the last element of the hostname.  This should be a poitive integer.
-### It will be returned as an integer with no leading zeros.
-#Facter.add('hostfact_node_number') do
-#  setcode do
-#    hostname_int = hostname[-1].to_i
-#    if hostname.length >= 3
-#      if hostname_int != 0
-#        hostname_int
-#      end
-#    end
-#  end
-#end
-#
-### Get the string between the environment and the node number.
-### This should depict the role of the host.
-#Facter.add('hostfact_role') do
-#  setcode do
-#    if hostname.length >= 3
-#      hostname[1...-1].join('-')
-#    end
-#  end
-#end
